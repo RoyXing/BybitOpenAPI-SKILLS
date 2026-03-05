@@ -1,24 +1,20 @@
-# Skill: websocket
+# Skill: WebSocket
 
-## Purpose
-公共/私有 WS 连接、认证、断线重连、消息一致性处理。
+## 目标
+稳定的 WS 订阅与断线重连策略（公有/私有）。
 
-## Public WS
+## 公共频道
 wss://stream.bybit.com/v5/public/{market}
 - tickers.{symbol}
 - orderbook.{depth}.{symbol}
 - kline.{interval}.{symbol}
 
-## Private WS
+## 私有频道
 wss://stream.bybit.com/v5/private
-- auth (apiKey + expires + signature)
+- auth（apiKey + expires + signature）
 - subscribe: order / position / wallet
 
-## Reliability
-- 断线重连：重连后必须重订阅
-- orderbook：重连后先拉 REST snapshot，再接 delta
-- 心跳：按服务端 ping/pong
-
-## Error Handling
-- 频率限制：降低订阅数量/频率
-- 认证失败：检查 timestamp 与签名
+## 可靠性
+- 断线重连后必须重订阅
+- orderbook 需 REST snapshot + delta
+- ping/pong 心跳保持连接
