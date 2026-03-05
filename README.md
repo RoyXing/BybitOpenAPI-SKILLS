@@ -8,6 +8,7 @@
 
 ## Scope
 - Market / Order / Position / Trade / Account / Asset / WebSocket
+- **Full V5 Reference**: `skills/bybit-v5/SKILL.md` (complete endpoint list)
 
 ## Operating Principles（硬规则）
 1) **精度先行**：先拉 instruments-info，再下单
