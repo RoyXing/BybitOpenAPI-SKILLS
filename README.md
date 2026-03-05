@@ -27,6 +27,9 @@
   - 资金划转/兑换 → `skills/asset-management/`
   - WS 实时订阅 → `skills/websocket/`
 
+## End‑to‑End Example
+- See `skills/trade-execution/EXAMPLE.md`
+
 ## Directory Layout
 ```
 skills/
