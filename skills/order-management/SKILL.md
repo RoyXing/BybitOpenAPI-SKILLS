@@ -1,13 +1,13 @@
-# Skill: Order Management
+# Skill: Order Management (Professional)
 
-## 目标
-安全下单/撤单/改单（含幂等与精度校验），适配自动化交易场景。
+## Objective
+Safe order lifecycle management: create / amend / cancel, with idempotency and precision enforcement.
 
-## 前置条件
-- 拉 `instruments-info`，按 `qtyStep / minOrderQty / tickSize` 量化
-- 使用 `orderLinkId` 作为幂等 ID
+## Preconditions
+- Fetch instruments‑info and quantize by `qtyStep` + `tickSize`.
+- Generate `orderLinkId` for idempotency.
 
-## 关键接口
+## Core Endpoints
 - POST `/v5/order/create`
 - POST `/v5/order/amend`
 - POST `/v5/order/cancel`
@@ -15,12 +15,12 @@
 - GET `/v5/order/history`
 - GET `/v5/execution/list`
 
-## 错误处理
-- `170137` 数量精度错误 → 按 `qtyStep` 修正
-- `170131` 最小下单额不足 → 增加 qty
-- `10001` 参数缺失 → 补齐 symbol/category
+## Failure Taxonomy
+- `170137`: qty precision invalid → re‑quantize
+- `170131`: below min order size → increase qty
+- `10001`: missing params → enforce symbol/category
 
-## 示例（下单）
+## Example (Create)
 ```
 POST /v5/order/create
 {
@@ -33,7 +33,7 @@ POST /v5/order/create
 }
 ```
 
-## 示例（撤单）
+## Example (Cancel)
 ```
 POST /v5/order/cancel
 { "category":"spot", "symbol":"MNTUSDC", "orderId":"..." }

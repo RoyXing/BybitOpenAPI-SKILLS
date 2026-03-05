@@ -1,19 +1,19 @@
-# Skill: Asset Management
+# Skill: Asset Management (Professional)
 
-## 目标
-资金划转、兑换、提现与历史查询。
+## Objective
+Transfer, convert, and audit assets with explicit safeguards.
 
-## 关键接口
+## Core Endpoints
 - GET `/v5/asset/transfer/query-inter-transfer-list`
 - POST `/v5/asset/transfer/inter-transfer`
 - POST `/v5/asset/exchange/quote-apply`
 - POST `/v5/asset/exchange/quote-execute`
 
-## 注意事项
-- Dust convert 有最小阈值，过小余额可能 `system error`
-- 默认使用 UNIFIED 账户
+## Operational Notes
+- Dust convert has minimum threshold; tiny balances may return `system error`.
+- Default account type: UNIFIED.
 
-## 示例
+## Example
 ```
 POST /v5/asset/transfer/inter-transfer
 { "fromAccountType":"UNIFIED", "toAccountType":"CONTRACT", "coin":"USDT", "amount":"10" }

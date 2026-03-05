@@ -1,18 +1,18 @@
-# Skill: Position Management
+# Skill: Position Management (Professional)
 
-## 目标
-查询与管理仓位（杠杆、止盈止损、仓位模式）。
+## Objective
+Control leverage, TP/SL, and position integrity with explicit parameter validation.
 
-## 关键接口
-- GET `/v5/position/list`（必须提供 symbol 或 settleCoin）
+## Core Endpoints
+- GET `/v5/position/list` (**requires** symbol or settleCoin)
 - POST `/v5/position/set-leverage`
 - POST `/v5/position/trading-stop`
 
-## 注意事项
-- UTA 下 positionIdx 需要匹配仓位方向
-- 下单后立即查询 `position/list` 确认生效
+## Operational Notes
+- UTA: confirm `positionIdx` and `tradeMode`.
+- Always re‑query `/position/list` after changes.
 
-## 示例
+## Example
 ```
 POST /v5/position/set-leverage
 { "category":"linear", "symbol":"BTCUSDT", "buyLeverage":"3", "sellLeverage":"3" }

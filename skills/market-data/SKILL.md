@@ -1,34 +1,35 @@
-# Skill: Market Data
+# Skill: Market Data (Professional)
 
-## 目标
-为 AI agent 提供稳定的市场数据获取方法（REST + WebSocket），确保参数完整、精度可控、结果可验证。
+## Objective
+Provide deterministic market data retrieval for AI agents (REST + WS), with precision‑aware constraints and reliability rules.
 
-## 前置条件
-- 确认 `category`（spot/linear/inverse/option）
-- 先拉 `instruments-info` 获取精度、最小下单量、tickSize
+## Preconditions
+- Resolve `category` (spot/linear/inverse/option)
+- Fetch `instruments-info` to obtain:
+  - `minOrderQty`, `qtyStep`, `tickSize`, `basePrecision`
 
-## 关键接口（REST）
+## Core REST Endpoints
 - GET `/v5/market/time`
 - GET `/v5/market/tickers`
 - GET `/v5/market/instruments-info`
 - GET `/v5/market/orderbook`
 - GET `/v5/market/kline`
 
-## 关键接口（WS 公共频道）
+## WS Topics (Public)
 - `tickers.{symbol}`
 - `orderbook.{depth}.{symbol}`
 - `kline.{interval}.{symbol}`
 - `publicTrade.{symbol}`
 
-## 可靠性要求
-- **orderbook**：断线重连后必须重新拉 REST snapshot，再接 delta
-- **限频处理**：遇到 429，指数退避重试
+## Reliability Requirements
+- **Orderbook**: On reconnect, always re‑pull REST snapshot, then apply deltas.
+- **Rate limits**: Exponential backoff on 429/413.
 
-## 输出格式建议（给 agent）
-- 输出最新价格、24h 变化、成交量
-- 标注数据来源（REST/WS）
+## Output Contract
+- price, 24h change, volume
+- source = REST or WS
 
-## 示例（REST）
+## Example
 ```
 /v5/market/tickers?category=linear&symbol=BTCUSDT
 ```
